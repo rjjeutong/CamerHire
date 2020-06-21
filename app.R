@@ -18,6 +18,7 @@ Education <- read_excel("CamerHire.xlsx", sheet = "Education")
 Youtube <- read_excel("CamerHire.xlsx", sheet = "Youtube")
 Online <- read_excel("CamerHire.xlsx", sheet = "Online")
 All_auto <- read_excel("CamerHire.xlsx", sheet = "All Auto")
+real_estate <- read_excel("CamerHire.xlsx", sheet = "Real Est Agent")
 Other <- read_excel("CamerHire.xlsx", sheet = "Other")
 
 ui <- navbarPage(
@@ -26,7 +27,7 @@ ui <- navbarPage(
   
   tabPanel(
     h4('About'), icon = icon('question'),
-    h2('This platform was created to inform the Cameroonian commuinity in the U.S. about
+    h2('This platform was created to inform the Cameroonian commuinity in North America about
        goods and services offered by their fellow citizens.'),
     h2('Click on each tab above to navigate the platform'),
     h2('If you want to update or add your business, email me at rjeutong@gmail.com')
@@ -38,19 +39,19 @@ ui <- navbarPage(
     dataTableOutput(outputId = 'entertainment')
   ),
   tabPanel(
-    h4('Education'), icon = icon('book'),
+    h4('Education'), icon = icon('book-open'),
     h2("See what cameroonians have to offer in education... These might be of interest to you"),
     br(),
     dataTableOutput(outputId = 'education')
   ),
   tabPanel(
-    h4('YouTube'), icon = icon('youtube'),
+    h4('YouTube'), icon = icon('youtube-square'),
     h2("Subscribe to these channels. You might find something here useful"),
     br(),
     dataTableOutput(outputId = 'youtube')
   ),
   tabPanel(
-    h4('Online'), icon = icon('tablet'),
+    h4('Online'), icon = icon('laptop'),
     h2("Online services and stores. Check them out"),
     br(),
     dataTableOutput(outputId = 'online')
@@ -62,7 +63,13 @@ ui <- navbarPage(
     dataTableOutput(outputId = 'auto')
   ),
   tabPanel(
-    h4('Other Businesses'), icon = icon('money'),
+    h4('Real Estate'), icon = icon('home'),
+    h2("Thinking of buying a house, give agents in our community a chance"),
+    br(),
+    dataTableOutput(outputId = 'real_estate')
+  ),
+  tabPanel(
+    h4('Other Businesses'), icon = icon('dollar-sign'),
     h2("Don't ignore this. There are important goods and services here"),
     br(),
     dataTableOutput(outputId = 'other')
@@ -103,11 +110,18 @@ server <- function(input, output) {
     All_auto %>%
       datatable(options = list(pageLength = 25), filter = 'top')
   )
+  
+  output$real_estate <- DT::renderDataTable(
+    real_estate %>%
+      datatable(options = list(pageLength = 25), filter = 'top')
+  )
+  
   output$other <- DT::renderDataTable(
     Other %>%
       datatable(options = list(pageLength = 25,
                                escape = F,
-                               columnDefs = list(list(targets = c(2,8), width = '30%'))),
+                               columnDefs = list(list(targets = c(2,8), width = '30%'),
+                                                 list(targets = 6, width = '10%'))),
                 filter = 'top')
   )
 }
