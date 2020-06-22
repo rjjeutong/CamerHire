@@ -30,17 +30,20 @@ ui <- navbarPage(
     h2('This platform was created to inform the Cameroonian commuinity in North America about
        goods and services offered by their fellow citizens.'),
     h2('Click on each tab above to navigate the platform'),
-    h2('If you want to update or add your business, email me at rjeutong@gmail.com')
+    h2('If you want to update or add your business, email us at rjeutong@gmail.com or
+       at stephanefokou@gmail.com')
   ),
   tabPanel(
     h4('Entertainment'), icon = icon('play'),
-    h2("If you have an event, don't look elsewhere... These guys are talented"), br(),
+    h2("If you have an event, do not look elsewhere... These guys are talented."), br(),
     br(),
     dataTableOutput(outputId = 'entertainment')
   ),
   tabPanel(
     h4('Education'), icon = icon('book-open'),
-    h2("See what cameroonians have to offer in education... These might be of interest to you"),
+    h2("See what cameroonians have to offer in education... These might be of interest to you
+       or your children. Even the most younger ones can benefit from some of these services.
+       Check them out."),
     br(),
     dataTableOutput(outputId = 'education')
   ),
