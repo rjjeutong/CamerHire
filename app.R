@@ -19,6 +19,7 @@ Youtube <- read_excel("CamerHire.xlsx", sheet = "Youtube")
 Online <- read_excel("CamerHire.xlsx", sheet = "Online")
 All_auto <- read_excel("CamerHire.xlsx", sheet = "All Auto")
 real_estate <- read_excel("CamerHire.xlsx", sheet = "Real Est Agent")
+containers <- read_excel("CamerHire.xlsx", sheet = "Conteners")
 Other <- read_excel("CamerHire.xlsx", sheet = "Other")
 
 ui <- navbarPage(
@@ -38,6 +39,12 @@ ui <- navbarPage(
     h2("If you have an event, do not look elsewhere... These guys are talented."), br(),
     br(),
     dataTableOutput(outputId = 'entertainment')
+  ),
+  tabPanel(
+    h4('Containers'), icon = icon('ship'),
+    h2("Want to ship goods to Cameroon? Check these guys out."),
+    br(),
+    dataTableOutput(outputId = 'containers')
   ),
   tabPanel(
     h4('Education'), icon = icon('book-open'),
@@ -116,6 +123,11 @@ server <- function(input, output) {
   
   output$real_estate <- DT::renderDataTable(
     real_estate %>%
+      datatable(options = list(pageLength = 25), filter = 'top')
+  )
+  
+  output$containers <- DT::renderDataTable(
+    containers %>%
       datatable(options = list(pageLength = 25), filter = 'top')
   )
   
