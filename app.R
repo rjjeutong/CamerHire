@@ -20,6 +20,7 @@ Online <- read_excel("CamerHire.xlsx", sheet = "Online")
 All_auto <- read_excel("CamerHire.xlsx", sheet = "All Auto")
 real_estate <- read_excel("CamerHire.xlsx", sheet = "Real Est Agent")
 containers <- read_excel("CamerHire.xlsx", sheet = "Conteners")
+food <- read_excel("CamerHire.xlsx", sheet = "Food")
 Other <- read_excel("CamerHire.xlsx", sheet = "Other")
 
 ui <- navbarPage(
@@ -79,6 +80,12 @@ ui <- navbarPage(
     dataTableOutput(outputId = 'real_estate')
   ),
   tabPanel(
+    h4('Food'), icon = icon('utensils'),
+    h2("Food the way you like. From pickup to catering, we got it. All cameroonian"),
+    br(),
+    dataTableOutput(outputId = 'food')
+  ),
+  tabPanel(
     h4('Other Businesses'), icon = icon('dollar-sign'),
     h2("Don't ignore this. There are important goods and services here"),
     br(),
@@ -128,6 +135,11 @@ server <- function(input, output) {
   
   output$containers <- DT::renderDataTable(
     containers %>%
+      datatable(options = list(pageLength = 25), filter = 'top')
+  )
+  
+  output$food <- DT::renderDataTable(
+    food %>%
       datatable(options = list(pageLength = 25), filter = 'top')
   )
   
