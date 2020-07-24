@@ -21,6 +21,7 @@ All_auto <- read_excel("CamerHire.xlsx", sheet = "All Auto")
 real_estate <- read_excel("CamerHire.xlsx", sheet = "Real Est Agent")
 containers <- read_excel("CamerHire.xlsx", sheet = "Conteners")
 food <- read_excel("CamerHire.xlsx", sheet = "Food")
+hair <- read_excel("CamerHire.xlsx", sheet = "Hair")
 Other <- read_excel("CamerHire.xlsx", sheet = "Other")
 
 ui <- navbarPage(
@@ -86,6 +87,12 @@ ui <- navbarPage(
     dataTableOutput(outputId = 'food')
   ),
   tabPanel(
+    h4('Hair'), icon = icon('hair'),
+    h2("Everything Hair"),
+    br(),
+    dataTableOutput(outputId = 'hair')
+  ),
+  tabPanel(
     h4('Other Businesses'), icon = icon('dollar-sign'),
     h2("Don't ignore this. There are important goods and services here"),
     br(),
@@ -140,6 +147,11 @@ server <- function(input, output) {
   
   output$food <- DT::renderDataTable(
     food %>%
+      datatable(options = list(pageLength = 25), filter = 'top')
+  )
+  
+  output$hair <- DT::renderDataTable(
+    hair %>%
       datatable(options = list(pageLength = 25), filter = 'top')
   )
   
